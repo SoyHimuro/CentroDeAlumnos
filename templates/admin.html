@@ -264,53 +264,71 @@ Panel Administrador
 
 
 
-                    <td>
+<td>
+
+    <!-- CAMBIAR ESTADO -->
+
+    <form method="POST"
+    action="/admin/sugerencia/{{sugerencia.id}}/estado">
 
 
-                        <form method="POST"
-                        action="/admin/sugerencia/{{sugerencia.id}}/estado">
+        <select name="estado" class="form-select mb-2">
 
 
-                            <select name="estado">
+            <option value="Pendiente">
+                Pendiente
+            </option>
 
 
-                                <option>
-                                   Pendiente
-                                </option>
+            <option value="Aprobada">
+                Aprobada
+            </option>
 
 
-                                <option>
-                                    Aprobada
-                                </option>
+            <option value="Rechazada">
+                Rechazada
+            </option>
 
 
-                                <option>
-                                    Rechazada
-                                </option>
-
-
-                            </select>
+        </select>
 
 
 
-                            <button>
-                                Guardar
-                            </button>
+        <button 
+        type="submit"
+        class="btn btn-success">
+
+            💾 Guardar
+
+        </button>
 
 
-                        <form 
-action="/admin/sugerencia/{{ sugerencia.id }}/eliminar" 
-method="POST">
+    </form>
 
-    <button 
-    type="submit"
-    class="btn btn-danger">
 
-        🗑️ Eliminar
 
-    </button>
+    <!-- ELIMINAR SUGERENCIA -->
 
-</form>
+
+    <form 
+    action="/admin/sugerencia/{{sugerencia.id}}/eliminar" 
+    method="POST"
+    class="mt-2">
+
+
+        <button 
+        type="submit"
+        class="btn btn-danger"
+        onclick="return confirm('¿Seguro que quieres eliminar esta sugerencia?')">
+
+
+            🗑️ Eliminar
+
+
+        </button>
+
+
+    </form>
 
 
 </td>

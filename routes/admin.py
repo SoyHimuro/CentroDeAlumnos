@@ -232,17 +232,29 @@ def cambiar_estado(id):
 @login_required
 def eliminar_sugerencia(id):
 
-    print("LLEGÓ A ELIMINAR:", id)
+    print("🚨 ENTRO A LA RUTA DE ELIMINAR")
+    print("ID RECIBIDO:", id)
 
-    sugerencia = Sugerencia.query.get_or_404(id)
+    sugerencia = Sugerencia.query.get(id)
 
-    print("ENCONTRADA:", sugerencia.titulo)
+    print("SUGERENCIA:", sugerencia)
+
+
+    if sugerencia is None:
+        flash("No existe esa sugerencia", "danger")
+        return redirect(url_for("admin.panel"))
+
 
     db.session.delete(sugerencia)
     db.session.commit()
 
-    print("BORRADA")
 
-    flash("Sugerencia eliminada correctamente", "success")
+    print("✅ ELIMINADA")
+
+    flash(
+        "Sugerencia eliminada correctamente",
+        "success"
+    )
+
 
     return redirect(url_for("admin.panel"))
