@@ -223,3 +223,21 @@ def cambiar_estado(id):
     return redirect(
         url_for("admin.panel")
     )
+# ==========================
+# ELIMINAR SUGERENCIA
+# ==========================
+
+@admin.route("/admin/sugerencia/<int:id>/eliminar", methods=["POST"])
+@login_required
+def eliminar_sugerencia(id):
+
+    # Buscar la sugerencia
+    sugerencia = Sugerencia.query.get_or_404(id)
+
+    # Eliminarla
+    db.session.delete(sugerencia)
+    db.session.commit()
+
+    flash("Sugerencia eliminada correctamente", "success")
+
+    return redirect(url_for("admin.panel"))
