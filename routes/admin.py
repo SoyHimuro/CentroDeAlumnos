@@ -227,32 +227,28 @@ def cambiar_estado(id):
 # ELIMINAR SUGERENCIA
 # ==========================
 
-# ==========================
-# ELIMINAR SUGERENCIA
-# ==========================
 
 @admin.route("/admin/sugerencia/<int:id>/eliminar", methods=["POST"])
 @login_required
 def eliminar_sugerencia(id):
 
-    if not current_user.administrador:
-        return redirect("/")
+    print("🔥 INTENTO DE ELIMINAR ID:", id)
 
+    sugerencia = Sugerencia.query.get(id)
 
-    sugerencia = Sugerencia.query.get_or_404(id)
+    print("🔥 SUGERENCIA ENCONTRADA:", sugerencia)
+
+    if sugerencia is None:
+        flash("No existe la sugerencia", "danger")
+        return redirect(url_for("admin.panel"))
 
 
     db.session.delete(sugerencia)
-
     db.session.commit()
 
 
-    flash(
-        "Sugerencia eliminada correctamente.",
-        "success"
-    )
+    print("🔥 ELIMINADA CORRECTAMENTE")
 
+    flash("Sugerencia eliminada correctamente", "success")
 
-    return redirect(
-        url_for("admin.panel")
-    )
+    return redirect(url_for("admin.panel"))
