@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+Detalle de sugerencia
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<section class="container mt-5 mb-5">
+
+
+
+<div class="row justify-content-center">
+
+
+
+<div class="col-lg-8">
+
+
+
+<div class="suggestion-box">
+
+
+
+
+
+<span class="category-badge">
+
+{{ sugerencia.categoria }}
+
+</span>
+
+
+
+
+<h1 class="mt-4 fw-bold">
+
+{{ sugerencia.titulo }}
+
+</h1>
+
+
+
+
+<p class="text-muted">
+
+<i class="fa-solid fa-user"></i>
+
+{{ sugerencia.autor.nombre }}
+
+
+<br>
+
+
+<i class="fa-solid fa-calendar"></i>
+
+{{ sugerencia.fecha.strftime('%d/%m/%Y') }}
+
+</p>
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+<p class="fs-5">
+
+{{ sugerencia.descripcion }}
+
+</p>
+
+
+
+
+
+
+<div class="d-flex justify-content-between mt-4">
+
+
+<span class="status status-review">
+
+{{ sugerencia.estado }}
+
+</span>
+
+
+
+
+<a href="/sugerencias/{{ sugerencia.id }}/apoyar"
+
+class="btn btn-danger">
+
+
+❤️ Apoyar
+
+</a>
+
+
+</div>
+
+
+
+
+
+<hr class="mt-5">
+
+
+
+
+
+<h3>
+
+💬 Comentarios
+
+</h3>
+
+
+
+
+
+
+
+{% if current_user.is_authenticated %}
+
+
+
+<form method="POST"
+
+action="/sugerencias/{{ sugerencia.id }}/comentar">
+
+
+
+<textarea
+
+name="comentario"
+
+class="form-control mb-3"
+
+placeholder="Escribe tu opinión..."
+
+required></textarea>
+
+
+
+
+<button class="btn btn-primary">
+
+Enviar comentario
+
+</button>
+
+
+
+</form>
+
+
+
+{% endif %}
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+
+
+{% for comentario in sugerencia.comentarios %}
+
+
+
+
+<div class="card mb-3">
+
+
+<div class="card-body">
+
+
+<strong>
+
+{{ comentario.autor.nombre }}
+
+</strong>
+
+
+<p class="mb-0">
+
+{{ comentario.contenido }}
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{% else %}
+
+
+
+<p class="text-muted">
+
+Todavía no hay comentarios.
+
+</p>
+
+
+
+{% endfor %}
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,503 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Panel Administrador
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="admin-container">
+
+
+    <div class="admin-header">
+
+        <h1>
+            🛡️ Panel de Administración
+        </h1>
+
+        <p>
+            Gestiona el Centro de Alumnos 
+        </p>
+
+    </div>
+
+
+
+    <!-- TARJETAS -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <h2>
+                {{ usuarios }}
+            </h2>
+
+            <p>
+                Usuarios registrados
+            </p>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💡
+            </div>
+
+            <h2>
+                {{ sugerencias|length }}
+            </h2>
+
+            <p>
+                {{ total_sugerencias }}
+            </p>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🚀
+            </div>
+
+            <h2>
+                {{ aprobadas }}
+            </h2>
+
+            <p>
+                Aprobadas
+            </p>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⏳
+            </div>
+
+            <h2>
+                {{ pendientes }}
+            </h2>
+
+            <p>
+                Pendientes
+            </p>
+
+        </div>
+        
+<div class="stat-card">
+
+    <div class="stat-icon">
+        📰
+    </div>
+
+    <h2>
+        {{ total_noticias }}
+    </h2>
+
+    <p>
+        Noticias publicadas
+    </p>
+
+</div>
+
+
+
+<div class="stat-card">
+
+    <div class="stat-icon">
+        📅
+    </div>
+
+    <h2>
+        {{ total_eventos }}
+    </h2>
+
+    <p>
+        Eventos creados
+    </p>
+
+</div>
+
+    </div>
+    
+    <a href="/admin/usuarios" class="btn btn-primary">
+
+👥 Administrar usuarios
+
+<a href="/admin/noticia/crear" class="btn btn-success">
+
+📰 Crear noticia
+
+</a>
+<a href="/admin/evento/crear" class="btn btn-warning">
+
+📅 Crear evento
+
+</a>
+</a>
+
+
+
+
+    <!-- TABLA -->
+
+
+    <div class="admin-panel">
+
+
+        <h2>
+            📋 Gestión de sugerencias
+        </h2>
+
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Título
+                    </th>
+
+
+                    <th>
+                        Autor
+                    </th>
+
+
+                    <th>
+                        Categoría
+                    </th>
+
+
+                    <th>
+                        Estado
+                    </th>
+
+
+                    <th>
+                        Cambiar
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+            <tbody>
+
+
+            {% for sugerencia in sugerencias %}
+
+
+                <tr>
+
+
+                    <td>
+                        {{ sugerencia.titulo }}
+                    </td>
+
+
+
+                    <td>
+                        {{ sugerencia.autor.nombre }}
+                    </td>
+
+
+
+                    <td>
+                        {{ sugerencia.categoria }}
+                    </td>
+
+
+
+                    <td>
+
+                        {% if sugerencia.estado == "Aprobada" %}
+
+                            <span class="status approved">
+                                🟢 Aprobada
+                            </span>
+
+
+                        {% elif sugerencia.estado == "Rechazada" %}
+
+                            <span class="status rejected">
+                                🔴 Rechazada
+                            </span>
+
+
+                        {% else %}
+
+                            <span class="status pending">
+                                🟡 Pendiente
+                            </span>
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+                    <td>
+
+
+                        <form method="POST"
+                        action="/admin/sugerencia/{{sugerencia.id}}/estado">
+
+
+                            <select name="estado">
+
+
+                                <option>
+                                   Pendiente
+                                </option>
+
+
+                                <option>
+                                    Aprobada
+                                </option>
+
+
+                                <option>
+                                    Rechazada
+                                </option>
+
+
+                            </select>
+
+
+
+                            <button>
+                                Guardar
+                            </button>
+
+
+                        </form>
+
+
+                    </td>
+
+
+                </tr>
+
+
+            {% endfor %}
+
+
+
+            </tbody>
+
+
+        </table>
+
+
+
+    </div>
+
+
+</div>
+
+
+<hr class="mt-5">
+
+
+<h2 class="mt-4">
+📊 Estadísticas
+</h2>
+
+
+<div style="width:500px; margin:auto;">
+
+<canvas id="graficoSugerencias" data-datos='{{ datos_grafico | tojson | safe }}'></canvas>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const datos = JSON.parse(document.getElementById("graficoSugerencias").dataset.datos);
+const ctx = document.getElementById("graficoSugerencias").getContext("2d");
+
+new Chart(ctx, {
+    type: "doughnut",
+    data: {
+        labels: [
+            "Aprobadas",
+            "Pendientes",
+            "Rechazadas"
+        ],
+        datasets: [{
+            data: [
+                datos.aprobadas,
+                datos.pendientes,
+                datos.rechazadas
+            ]
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+
+</script>
+
+<div class="admin-panel mt-5">
+
+
+<h2>
+👥 Últimos usuarios registrados
+</h2>
+
+
+<table>
+
+
+<tr>
+
+<th>
+Nombre
+</th>
+
+<th>
+Curso
+</th>
+
+<th>
+Rol
+</th>
+
+</tr>
+
+
+
+{% for usuario in ultimos_usuarios %}
+
+
+<tr>
+
+<td>
+{{ usuario.nombre }}
+</td>
+
+
+<td>
+{{ usuario.curso }}
+</td>
+
+
+<td>
+
+{% if usuario.administrador %}
+
+🛡️ Administrador
+
+{% else %}
+
+🎓 Estudiante
+
+{% endif %}
+
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+<div class="admin-panel mt-5">
+
+
+<h2>
+📰 Últimas noticias creadas
+</h2>
+
+
+<ul>
+
+{% for noticia in ultimas_noticias %}
+
+<li>
+{{ noticia.titulo }}
+</li>
+
+
+{% endfor %}
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+<div class="admin-panel mt-5">
+
+
+<h2>
+📅 Próximos eventos
+</h2>
+
+
+<ul>
+
+{% for evento in ultimos_eventos %}
+
+<li>
+{{ evento.titulo }} - {{ evento.fecha }}
+</li>
+
+
+{% endfor %}
+
+
+</ul>
+
+
+</div>
+
+{% endblock %}

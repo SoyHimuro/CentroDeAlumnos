@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Administrar Usuarios
+{% endblock %}
+
+<h1 style="color:red">
+PRUEBA NUEVO ARCHIVO
+</h1>
+
+{% block content %}
+
+
+<div class="container mt-5">
+
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h1>
+            👥 Administrar Usuarios
+        </h1>
+
+        <a href="/admin" class="btn btn-secondary">
+            Volver al panel
+        </a>
+
+    </div>
+
+
+
+    <div class="table-responsive mt-4">
+
+
+        <table class="table table-dark table-striped table-hover">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Nombre
+                    </th>
+
+
+                    <th>
+                        Correo
+                    </th>
+
+
+                    <th>
+                        Curso
+                    </th>
+
+
+                    <th>
+                        Rol
+                    </th>
+
+
+                    <th>
+                        Acciones
+                    </th>
+
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+            {% for usuario in usuarios %}
+
+
+                <tr>
+
+
+                    <td>
+                        {{ usuario.nombre }}
+                    </td>
+
+
+                    <td>
+                        {{ usuario.correo }}
+                    </td>
+
+
+                    <td>
+                        {{ usuario.curso }}
+                    </td>
+
+
+
+                    <td>
+
+
+                        {% if usuario.administrador %}
+
+
+                            <span class="badge bg-warning text-dark">
+
+                                🛡️ Administrador
+
+                            </span>
+
+
+                        {% else %}
+
+
+                            <span class="badge bg-primary">
+
+                                🎓 Estudiante
+
+                            </span>
+
+
+                        {% endif %}
+
+
+
+                    </td>
+
+
+
+                    <td>
+
+
+                        <!-- CAMBIAR ROL -->
+
+                        <form method="POST"
+                        action="/admin/usuario/{{usuario.id}}/rol"
+                        class="d-inline">
+
+
+                            <button 
+                            class="btn btn-outline-light btn-sm">
+
+                                🔄 Cambiar rol
+
+                            </button>
+
+
+                        </form>
+
+
+
+
+                        <!-- ELIMINAR -->
+
+                        {% if usuario.id != current_user.id %}
+
+
+                        <form method="POST"
+                        action="/admin/usuario/{{usuario.id}}/eliminar"
+                        class="d-inline">
+
+
+                            <button 
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
+
+                                🗑️ Eliminar
+
+                            </button>
+
+
+                        </form>
+
+
+                        {% else %}
+
+
+                            <span class="text-muted">
+                                Cuenta actual
+                            </span>
+
+
+                        {% endif %}
+
+
+
+                    </td>
+
+
+
+                </tr>
+
+
+            {% endfor %}
+
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}

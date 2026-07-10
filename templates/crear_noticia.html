@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Crear noticia
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="form-container">
+
+
+<h1>
+📰 Crear noticia
+</h1>
+
+
+
+<form method="POST">
+
+
+<label>
+Título
+</label>
+
+
+<input 
+type="text"
+name="titulo"
+required>
+
+
+
+<label>
+Contenido
+</label>
+
+
+<textarea
+name="contenido"
+rows="6"
+required></textarea>
+
+
+
+
+<button>
+Publicar noticia
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}

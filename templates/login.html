@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+Iniciar sesión | Centro de Alumnos 
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<section class="auth-section">
+
+
+<div class="container">
+
+
+<div class="row justify-content-center">
+
+
+
+<div class="col-md-5">
+
+
+
+<div class="auth-card">
+
+
+
+<div class="text-center mb-4">
+
+
+<i class="fa-solid fa-user-graduate fa-4x text-primary"></i>
+
+
+<h2 class="mt-3">
+
+Bienvenido nuevamente
+
+</h2>
+
+
+<p class="text-muted">
+
+Ingresa a tu cuenta para participar.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<form method="POST">
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Correo electrónico
+
+</label>
+
+
+<div class="input-group">
+
+
+<span class="input-group-text">
+
+<i class="fa-solid fa-envelope"></i>
+
+</span>
+
+
+<input 
+type="email"
+name="correo"
+class="form-control"
+placeholder="ejemplo@correo.com"
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="mb-3">
+
+
+<label class="form-label">
+
+Contraseña
+
+</label>
+
+
+<div class="input-group">
+
+
+<span class="input-group-text">
+
+<i class="fa-solid fa-lock"></i>
+
+</span>
+
+
+
+<input
+type="password"
+name="contraseña"
+class="form-control"
+placeholder="Tu contraseña"
+required>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="d-grid mt-4">
+
+
+<button 
+class="btn btn-primary btn-lg">
+
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+Ingresar
+
+
+</button>
+
+
+</div>
+
+
+
+
+</form>
+
+
+
+
+
+
+
+<div class="text-center mt-4">
+
+
+<p>
+
+¿No tienes cuenta?
+
+<a href="/registro">
+
+Regístrate aquí
+
+</a>
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+{% endblock %}

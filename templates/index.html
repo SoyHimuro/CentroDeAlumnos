@@ -1,0 +1,416 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Inicio
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<section class="hero">
+
+<div>
+
+
+<h1>
+Tu voz, tus ideas, tu colegio 🎓
+</h1>
+
+
+<p>
+Una plataforma creada para que los estudiantes participen,
+propongan y mejoren nuestra comunidad escolar.
+</p>
+
+
+<a href="/sugerencias" class="btn btn-primary">
+💡 Enviar sugerencia
+</a>
+
+
+<a href="/noticias" class="btn btn-outline-dark ms-2">
+📰 Ver noticias
+</a>
+
+
+</div>
+
+</section>
+
+
+
+
+
+<section class="container mt-5">
+
+
+<div class="row text-center">
+
+
+
+<div class="col-md-3">
+
+<div class="card p-4 shadow">
+
+
+<h2>
+💡
+</h2>
+
+
+<h3>
+Sugerencias
+</h3>
+
+
+<p>
+{{ cantidad_sugerencias }}
+propuestas realizadas
+</p>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-3">
+
+<div class="card p-4 shadow">
+
+
+<h2>
+📰
+</h2>
+
+
+<h3>
+Noticias
+</h3>
+
+
+<p>
+{{ cantidad_noticias }}
+noticias publicadas
+</p>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-3">
+
+<div class="card p-4 shadow">
+
+
+<h2>
+📅
+</h2>
+
+
+<h3>
+Eventos
+</h3>
+
+
+<p>
+{{ cantidad_eventos }}
+eventos programados
+</p>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-3">
+
+<div class="card p-4 shadow">
+
+
+<h2>
+🎓
+</h2>
+
+
+<h3>
+Comunidad
+</h3>
+
+
+<p>
+Participación estudiantil activa
+</p>
+
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="container mt-5">
+
+
+<h2>
+📰 Últimas noticias
+</h2>
+
+
+
+<div class="row">
+
+
+
+{% for noticia in noticias %}
+
+
+<div class="col-md-4 mb-4">
+
+
+<div class="card shadow p-3 h-100">
+
+
+<h4>
+{{ noticia.titulo }}
+</h4>
+
+
+<p>
+{{ noticia.contenido[:120] }}...
+</p>
+
+
+<a href="/noticias" class="btn btn-dark">
+
+Leer más
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+{% else %}
+
+
+<p>
+No hay noticias disponibles todavía.
+</p>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="container mt-5">
+
+
+<h2>
+📅 Próximos eventos
+</h2>
+
+
+
+<div class="row">
+
+
+
+{% for evento in eventos %}
+
+
+
+<div class="col-md-4 mb-4">
+
+
+<div class="card shadow p-3 h-100">
+
+
+<h4>
+{{ evento.titulo }}
+</h4>
+
+
+<p>
+{{ evento.descripcion[:100] }}...
+</p>
+
+
+<p>
+📅 {{ evento.fecha }}
+</p>
+
+
+<p>
+⏰ {{ evento.hora }}
+</p>
+
+
+<p>
+📍 {{ evento.lugar }}
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% else %}
+
+
+<p>
+No hay eventos próximos.
+</p>
+
+
+{% endfor %}
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+<section class="container mt-5">
+
+
+<div class="card shadow p-5 text-center">
+
+
+<h2>
+🏫 Sobre nosotros
+</h2>
+
+
+<p>
+
+El Centro de Alumnos es una plataforma creada para fortalecer
+la participación estudiantil, permitiendo que cada estudiante pueda
+expresar sus ideas, aportar soluciones y mantenerse informado sobre
+las actividades de nuestra comunidad educativa.
+
+</p>
+
+
+<div class="row mt-4">
+
+
+<div class="col-md-4">
+
+<h3>
+💡
+</h3>
+
+<h5>
+Participación
+</h5>
+
+<p>
+Todos pueden aportar ideas para mejorar el colegio.
+</p>
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+<h3>
+🤝
+</h3>
+
+<h5>
+Comunidad
+</h5>
+
+<p>
+Un espacio para conectar estudiantes y representantes.
+</p>
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+<h3>
+🚀
+</h3>
+
+<h5>
+Innovación
+</h5>
+
+<p>
+Tecnología al servicio de la comunidad escolar.
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+{% endblock %}

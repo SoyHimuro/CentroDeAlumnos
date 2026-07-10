@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Eventos
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container mt-5">
+
+
+<h1 class="text-center mb-5">
+📅 Próximos Eventos
+</h1>
+
+
+
+<div class="row">
+
+
+{% for evento in eventos %}
+
+
+
+<div class="col-md-6 col-lg-4 mb-4">
+
+
+<div class="card shadow h-100">
+
+
+<div class="card-body">
+
+
+
+<h3 class="card-title">
+
+{{ evento.titulo }}
+
+</h3>
+
+
+
+<p class="card-text">
+
+{{ evento.descripcion }}
+
+</p>
+
+
+
+<hr>
+
+
+<p>
+
+📅 <b>Fecha:</b>
+
+{{ evento.fecha }}
+
+</p>
+
+
+<p>
+
+⏰ <b>Hora:</b>
+
+{{ evento.hora }}
+
+</p>
+
+
+<p>
+
+📍 <b>Lugar:</b>
+
+{{ evento.lugar }}
+
+</p>
+
+
+
+{% if current_user.is_authenticated and current_user.administrador %}
+
+
+<form method="POST"
+action="/admin/evento/{{ evento.id }}/eliminar">
+
+
+<button class="btn btn-danger w-100">
+
+🗑️ Eliminar evento
+
+</button>
+
+
+</form>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+{% else %}
+
+
+<div class="alert alert-info">
+
+No hay eventos disponibles todavía.
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Crear Evento
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="form-container">
+
+
+
+<h1>
+📅 Crear Evento
+</h1>
+
+
+
+
+<form method="POST">
+
+
+
+<label>
+Título del evento
+</label>
+
+
+<input 
+type="text"
+name="titulo"
+required>
+
+
+
+
+<label>
+Descripción
+</label>
+
+
+<textarea
+name="descripcion"
+rows="5"
+required></textarea>
+
+
+
+
+
+<label>
+Fecha
+</label>
+
+
+<input
+type="date"
+name="fecha"
+required>
+
+
+
+
+
+<label>
+Hora
+</label>
+
+
+<input
+type="time"
+name="hora"
+required>
+
+
+
+
+
+<label>
+Lugar
+</label>
+
+
+<input
+type="text"
+name="lugar"
+required>
+
+
+
+
+
+<button>
+Crear evento
+</button>
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+{% endblock %}
