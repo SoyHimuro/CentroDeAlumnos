@@ -167,3 +167,22 @@ def propuestas():
     return render_template(
         "propuestas.html"
     )
+from models import Usuario, Sugerencia
+
+
+@main.route("/perfil/<int:id>")
+@login_required
+def perfil_usuario(id):
+
+    usuario = Usuario.query.get_or_404(id)
+
+    cantidad_sugerencias = Sugerencia.query.filter_by(
+        usuario_id=usuario.id
+    ).count()
+
+
+    return render_template(
+        "perfil.html",
+        usuario=usuario,
+        cantidad_sugerencias=cantidad_sugerencias
+    )

@@ -298,23 +298,19 @@ Panel Administrador
                             </button>
 
 
-                         <form 
-    action="{{ url_for('admin.eliminar_sugerencia', id=sugerencia.id) }}" 
-    method="POST"
-    style="margin-top:10px;">
+                        <form 
+action="/admin/sugerencia/{{ sugerencia.id }}/eliminar" 
+method="POST">
 
+    <button 
+    type="submit"
+    class="btn btn-danger">
 
-        <button 
-        type="submit"
-        class="btn btn-danger"
-        onclick="return confirm('¿Seguro que quieres eliminar esta sugerencia?')">
+        🗑️ Eliminar
 
-            🗑️ Eliminar
+    </button>
 
-        </button>
-
-
-    </form>
+</form>
 
 
 </td>
